@@ -7,7 +7,7 @@ package com.example.bane_.chatapp;
 public class UsersOfFirebase {
 
     private String email;
-    private String namel;
+    private String name;
 
     public UsersOfFirebase() {
     }
@@ -16,15 +16,15 @@ public class UsersOfFirebase {
         this.email = email;
     }
 
-    public void setNamel(String namel) {
-        this.namel = namel;
+    public void setName(String namel) {
+        this.name = namel;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getNamel() {
-        return namel;
+    public String getName() {
+        return name;
     }
 }
