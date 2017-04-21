@@ -1,9 +1,12 @@
 package com.example.bane_.chatapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ public class Users extends AppCompatActivity {
     FirebaseAuth fireBaseAuth;
     String userID;
     ProgressDialog pd;
+    ArrayList<String>uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,12 @@ public class Users extends AppCompatActivity {
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, list_of_rooms);
         fireBaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user=fireBaseAuth.getCurrentUser();
-        userID=user.getUid();
+        FirebaseUser user = fireBaseAuth.getCurrentUser();
+        userID = user.getUid();
 
         usersList.setAdapter(arrayAdapter);
         pd = new ProgressDialog(Users.this);
+        uid=new ArrayList<>();
 
         pd.setMessage("Loading...");
         pd.show();
@@ -57,14 +62,17 @@ public class Users extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Set<String> set = new HashSet<String>();
-               // Toast.makeText(Users.this, ""+userID, Toast.LENGTH_SHORT).show();
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String rFace=ds.getValue().toString();
-                    Toast.makeText(Users.this, ""+rFace, Toast.LENGTH_SHORT).show();
-                    if (!(rFace.compareTo(userID)==0)) {
+                    String rFace = ds.getKey();// uid.add(rFace);
+                   // Toast.makeText(Users.this, ""+rFace, Toast.LENGTH_SHORT).show();
+                    if (!(rFace.compareTo(userID) == 0)) {
                         UsersOfFirebase usersOfFirebase = new UsersOfFirebase();
                         usersOfFirebase.setName(ds.child("name").getValue().toString());
                         set.add(usersOfFirebase.getName());
+                        uid.add(rFace);
+                       // names.add(usersOfFirebase.getName());
+
                     }
                 }
                 list_of_rooms.clear();
@@ -85,9 +93,20 @@ public class Users extends AppCompatActivity {
 
             }
         });
+        usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, //it is always the same;
+                                    int position, long id) {
+
+                Intent chat = new Intent(Users.this,Chat.class);
+                chat.putExtra("uid", uid.get(position));
+              //  Intent intent = new Intent(MainActivity.this, Chat.class); //creates a new intent
+                 startActivity(chat);
+
+            }
+        });
+    }
 
     }
 
-
-}
