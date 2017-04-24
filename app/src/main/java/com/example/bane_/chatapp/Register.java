@@ -87,10 +87,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                DatabaseReference users = databaseReference.child("users");
-                                DatabaseReference theUser = users.child(fireBaseAuth.getCurrentUser().getUid());
-                                theUser.child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
-                                theUser.child("name").setValue(user);
+                                databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
+                                databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("name").setValue(user);
+//                                DatabaseReference users = databaseReference.child("users");
+//                                DatabaseReference theUser = users.child(fireBaseAuth.getCurrentUser().getUid());
+//                                theUser.child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
+//                                theUser.child("name").setValue(user);
                                 pd.dismiss();
                                 Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                             }

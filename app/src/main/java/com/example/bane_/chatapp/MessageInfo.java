@@ -1,17 +1,17 @@
 package com.example.bane_.chatapp;
 
 /**
- * Created by bane- on 4/21/2017.
+ * Created by Interns on 4/19/2017.
  */
 
 public class MessageInfo {
-    String fromId , text, told;
 
-    public MessageInfo(String fromId, String text, String told) {
-        this.fromId = fromId;
-        this.text = text;
-        this.told = told;
-    }
+    private String fromId;
+    private String text;
+    private String timestamp;
+    private String told;
+
+
 
     public String getFromId() {
         return fromId;
@@ -27,6 +27,14 @@ public class MessageInfo {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getTold() {

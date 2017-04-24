@@ -64,14 +64,14 @@ public class Users extends AppCompatActivity {
                 Set<String> set = new HashSet<String>();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String rFace = ds.getKey();// uid.add(rFace);
-                   // Toast.makeText(Users.this, ""+rFace, Toast.LENGTH_SHORT).show();
+
+                    String rFace = ds.getKey();
+
                     if (!(rFace.compareTo(userID) == 0)) {
                         UsersOfFirebase usersOfFirebase = new UsersOfFirebase();
                         usersOfFirebase.setName(ds.child("name").getValue().toString());
                         set.add(usersOfFirebase.getName());
                         uid.add(rFace);
-                       // names.add(usersOfFirebase.getName());
 
                     }
                 }
@@ -100,8 +100,9 @@ public class Users extends AppCompatActivity {
                                     int position, long id) {
 
                 Intent chat = new Intent(Users.this,Chat.class);
+                String selectedFromList =(usersList.getItemAtPosition(position).toString());
                 chat.putExtra("uid", uid.get(position));
-              //  Intent intent = new Intent(MainActivity.this, Chat.class); //creates a new intent
+                chat.putExtra("otherPerson", selectedFromList);
                  startActivity(chat);
 
             }
