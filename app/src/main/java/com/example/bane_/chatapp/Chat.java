@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Chat extends AppCompatActivity {
 
@@ -96,20 +97,13 @@ public class Chat extends AppCompatActivity {
                 }
             }
         });
-
-        databaseReference.child("messages").addChildEventListener(new ChildEventListener() {
+        databaseReference.child("user-messages").child(user.getUid()).child(otherPersonUid).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                String childKey = dataSnapshot.getKey();
 
-                MessageInfo newInfo = dataSnapshot.getValue(MessageInfo.class);
-
-                Toast.makeText(Chat.this, ""+otherPersonUid+"   "+otherPerson, Toast.LENGTH_SHORT).show();
-                if (newInfo.getFromId().equals(user.getUid()) && newInfo.getTold().equals(otherPersonUid)) {
-                    setMessageBox("You: \n", newInfo.getText(), 1);
-                } else if (newInfo.getFromId().equals(otherPersonUid) && newInfo.getTold().equals(user.getUid())) {
-                    setMessageBox(otherPerson + ": \n", newInfo.getText(), 2);
-                }
+                getMessageText(childKey);
 
             }
 
@@ -131,6 +125,34 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void getMessageText(final String s)
+    {
+        databaseReference.child("messages").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                MessageInfo newInfo;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.getKey().equals(s)) {
+                        newInfo = ds.getValue(MessageInfo.class);
+
+                        if (newInfo.getFromId().equals(user.getUid())) {
+                            setMessageBox("You: \n", newInfo.getText(), 1);
+                        } else {
+                            setMessageBox(otherPerson + ": \n", newInfo.getText(), 2);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Chat.this, "Error geting messages...", Toast.LENGTH_SHORT).show();
             }
         });
     }

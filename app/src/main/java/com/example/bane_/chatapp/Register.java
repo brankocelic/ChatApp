@@ -73,7 +73,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                     //   pd.dismiss();
+                        //   pd.dismiss();
                         if (!task.isSuccessful()) {
                             pd.dismiss();
                             Toast.makeText(Register.this, "Could not register, please try again!", Toast.LENGTH_SHORT).show();
@@ -89,14 +89,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             if (task.isSuccessful()) {
                                 databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
                                 databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("name").setValue(user);
-//                                DatabaseReference users = databaseReference.child("users");
-//                                DatabaseReference theUser = users.child(fireBaseAuth.getCurrentUser().getUid());
-//                                theUser.child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
-//                                theUser.child("name").setValue(user);
                                 pd.dismiss();
                                 Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                            }
-                            else
+                            } else
                                 Toast.makeText(Register.this, "sdasadsa", Toast.LENGTH_SHORT).show();
                         }
 

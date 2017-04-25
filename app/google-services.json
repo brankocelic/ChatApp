@@ -1,27 +1,98 @@
 {
   "project_info": {
-    "project_number": "997583497020",
-    "firebase_url": "https://chat-f45c9.firebaseio.com",
-    "project_id": "chat-f45c9",
-    "storage_bucket": "chat-f45c9.appspot.com"
+    "project_number": "911954343880",
+    "firebase_url": "https://chat-application-efb5e.firebaseio.com",
+    "project_id": "chat-application-efb5e",
+    "storage_bucket": "chat-application-efb5e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:997583497020:android:1a6565bbaf685864",
+        "mobilesdk_app_id": "1:911954343880:android:84cb588a25013cb5",
+        "android_client_info": {
+          "package_name": "com.example.user.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911954343880-26o5iobsguspb9dche2pki4dom1s1sbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoJvgk_RRZabWlEeLoCqo3YjqL3foDoiA"
+        },
+        {
+          "current_key": "AIzaSyBgath9Bvs8VlBDX3bYgN7Qd32injY-two"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911954343880:android:feb7e95840727b85",
+        "android_client_info": {
+          "package_name": "com.example.hpkorisnik.chatty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911954343880-26o5iobsguspb9dche2pki4dom1s1sbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoJvgk_RRZabWlEeLoCqo3YjqL3foDoiA"
+        },
+        {
+          "current_key": "AIzaSyBgath9Bvs8VlBDX3bYgN7Qd32injY-two"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911954343880:android:1a6565bbaf685864",
         "android_client_info": {
           "package_name": "com.example.bane_.chatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "997583497020-0vuum9micqlqcib28andb2ahdfuc7rrv.apps.googleusercontent.com",
+          "client_id": "911954343880-26o5iobsguspb9dche2pki4dom1s1sbo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBGkhyRQyx3EnnWJ5qXK-dJr7GjojYIg0M"
+          "current_key": "AIzaSyBoJvgk_RRZabWlEeLoCqo3YjqL3foDoiA"
+        },
+        {
+          "current_key": "AIzaSyBgath9Bvs8VlBDX3bYgN7Qd32injY-two"
         }
       ],
       "services": {
