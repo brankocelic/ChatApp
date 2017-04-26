@@ -9,7 +9,7 @@ public class MessageInfo {
     private String fromId;
     private String text;
     private String timestamp;
-    private String told;
+    private String toId;
 
 
 
@@ -37,11 +37,11 @@ public class MessageInfo {
         this.timestamp = timestamp;
     }
 
-    public String getTold() {
-        return told;
+    public String getToId() {
+        return toId;
     }
 
-    public void setTold(String told) {
-        this.told = told;
+    public void setToId(String toId) {
+        this.toId = toId;
     }
 }

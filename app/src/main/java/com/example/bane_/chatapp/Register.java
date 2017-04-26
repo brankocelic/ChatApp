@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static com.example.bane_.chatapp.R.id.username;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
     EditText userName, passWord, editUser;
@@ -33,7 +36,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userName = (EditText) findViewById(R.id.username);
+        userName = (EditText) findViewById(username);
         passWord = (EditText) findViewById(R.id.password);
         editUser = (EditText) findViewById(R.id.editUser);
         register = (Button) findViewById(R.id.registerButton);
@@ -66,39 +69,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this, "Please enter user name", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        pd.setMessage("Registering please wait...");
-        pd.show();
-        fireBaseAuth.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //   pd.dismiss();
-                        if (!task.isSuccessful()) {
-                            pd.dismiss();
-                            Toast.makeText(Register.this, "Could not register, please try again!", Toast.LENGTH_SHORT).show();
-                            uslov = true;
-                        }
-                    }
-                });
-        if (!uslov) {
-            fireBaseAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("email").setValue(fireBaseAuth.getCurrentUser().getEmail());
-                                databaseReference.child("users").child(fireBaseAuth.getCurrentUser().getUid()).child("name").setValue(user);
-                                pd.dismiss();
-                                Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                            } else
-                                Toast.makeText(Register.this, "sdasadsa", Toast.LENGTH_SHORT).show();
-                        }
-
-                    });
-        }
+        registerUser(email, pass, user);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -109,5 +81,36 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             finish();
             startActivity(new Intent(Register.this, MainActivity.class));
         }
+    }
+
+    public void registerUser(String email, String pass, String user1) {
+
+        final User newUser = new User(user1, email);
+
+        pd = new ProgressDialog(Register.this);
+        pd.setMessage("Registering user... please wait");
+        pd.show();
+
+        fireBaseAuth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //checking if success
+                        if (task.isSuccessful()) {
+
+                            FirebaseUser user = fireBaseAuth.getCurrentUser();
+
+                            databaseReference.child("users").child(user.getUid()).setValue(newUser);
+
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), Users.class));
+                        } else {
+                            //display some message here
+                            Toast.makeText(Register.this, "Registration Error", Toast.LENGTH_LONG).show();
+                        }
+                        pd.dismiss();
+                    }
+                });
+
     }
 }

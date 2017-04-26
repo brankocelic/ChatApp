@@ -69,7 +69,6 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!message.getText().toString().equals("")) {
-                    //  i = getIntent();
                     MessageInfo info = new MessageInfo();
                     long temp = System.currentTimeMillis();
                     String string = Long.toString(temp);
@@ -77,15 +76,15 @@ public class Chat extends AppCompatActivity {
                     info.setText(message.getText().toString());
                     info.setTimestamp(string);
                     info.setFromId(user.getUid());
-                    info.setTold(otherPersonUid);
+                    info.setToId(otherPersonUid);
 
                     String myID = databaseReference.child("messages").push().getKey();
 
                     message.setText("");
 
                     databaseReference.child("messages").child(myID).setValue(info);
-                    databaseReference.child("user-messages").child(user.getUid()).child(otherPersonUid).child(myID).setValue(1);
-                    databaseReference.child("user-messages").child(otherPersonUid).child(user.getUid()).child(myID).setValue(1);
+                    databaseReference.child("user-messages").child(user.getUid()).child(otherPersonUid).child(myID).setValue("1");
+                    databaseReference.child("user-messages").child(otherPersonUid).child(user.getUid()).child(myID).setValue("1");
 
                     scrollView.postDelayed(new Runnable() {
                         @Override

@@ -61,15 +61,16 @@ public class Users extends AppCompatActivity {
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                list_of_rooms.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String rFace = ds.getKey();// uid.add(rFace);
                     if (!(rFace.compareTo(userID) == 0)) {
                         UsersOfFirebase usersOfFirebase = new UsersOfFirebase();
                         usersOfFirebase.setName(ds.child("name").getValue().toString());
-                        list_of_rooms.add(usersOfFirebase.getName());
-                        uid.add(rFace);
-                        //  }
+                        if (!list_of_rooms.contains(usersOfFirebase.getName())) {
+                            list_of_rooms.add(usersOfFirebase.getName());
+                            uid.add(rFace);
+                        }
                     }
                     if (list_of_rooms.size() == 0) {
                         pd.dismiss();
@@ -87,14 +88,12 @@ public class Users extends AppCompatActivity {
             }
         });
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, //it is always the same;
                                     int position, long id) {
 
                 Intent chat = new Intent(Users.this, Chat.class);
                 chat.putExtra("uid", uid.get(position));
-                //  Intent intent = new Intent(MainActivity.this, Chat.class); //creates a new intent
                 startActivity(chat);
 
             }
